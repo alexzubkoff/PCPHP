@@ -9,3 +9,4 @@ protected/runtime/*
 !protected/runtime/.gitkeep
 protected/data/*.db
 themes/classic/views/
+/nbproject/private/
