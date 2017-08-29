@@ -1,41 +1,52 @@
 <?php
 
-class SiteController extends Controller
-{
-    /**
-     * Declares class-based actions.
-     */
-    public function actions()
+class SiteController extends Controller {
+    /* public function actionIndex()
+      {
+      $this->layout = "login_layout_caesar";
+
+      $this->render('login_page_caesar');
+      } */
+
+    public function actionIndex() 
     {
-        return [
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => [
-                'class' => 'CCaptchaAction',
-                'backColor' => 0xFFFFFF,
-            ],
-            // page action renders "static" pages stored under 'protected/views/site/pages'
-            // They can be accessed via: index.php?r=site/page&view=FileName
-            'page' => [
-                'class' => 'CViewAction',
-            ],
-        ];
+        $model = new LoginForm();
+
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
+            // validate user input and redirect to the previous page if valid
+
+            if ($model->validate() && $model->login())
+                $this->redirect("site/main");
+            if($model->validate() && $model->login())
+
+                $this->redirect(Yii::app()->request->baseUrl ."/site/main");
+
+        }
+
+        $this->layout = "login_layout_caesar";
+
+        $this->render('login_page_caesar', array('model' => $model));
     }
 
-    /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
-     */
-    public function actionIndex()
+    public function actionMain() 
     {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        if (Yii::app()->user->id) {
+            $this->layout = "main";
+
+            $this->render('main');
+        } else {
+            $this->redirect(Yii::app()->request->baseUrl . '/site/index');
+        }
     }
 
-    /**
-     * This is the action to handle external exceptions.
-     */
-    public function actionError()
+    public function actionLogout() 
+    {
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionError() 
     {
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest) {
@@ -46,64 +57,54 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Displays the contact page
-     */
-    public function actionContact()
+    public static function actionSetup() 
     {
-        $model = new ContactForm;
-        if (isset($_POST['ContactForm'])) {
-            $model->attributes = $_POST['ContactForm'];
-            if ($model->validate()) {
-                $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
-                $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
-                $headers = "From: $name <{$model->email}>\r\n" .
-                    "Reply-To: {$model->email}\r\n" .
-                    "MIME-Version: 1.0\r\n" .
-                    "Content-Type: text/plain; charset=UTF-8";
+        $auth = Yii::app()->authManager;
+        $auth->createOperation('createGroup');
+        $auth->createOperation('updateGroup');
+        $auth->createOperation('deleteGroup');
+        $auth->createOperation('createUser');
+        $auth->createOperation('updateUser');
+        $auth->createOperation('deleteUser');
 
-                mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
-                Yii::app()->user->setFlash(
-                    'contact',
-                    'Thank you for contacting us. We will respond to you as soon as possible.'
-                );
-                $this->refresh();
-            }
+        $task = $auth->createTask('createOwnLocationGroup', 'Allows a user to create his own location  group', 'return $params["id"] == Yii::app()->user->id;');
+        $task->addChild('createGroup');
+
+        $task = $auth->createTask('updateOwnLocationGroup', 'Allows a user to update his own location group', 'return $params["id"] == Yii::app()->user->id;');
+        $task->addChild('updateGroup');
+
+        $task = $auth->createTask('deleteOwnLocationGroup', 'Allows a user to delete his own location group', 'return $params["id"] == Yii::app()->user->id;');
+        $task->addChild('deleteGroup');
+
+        $task = $auth->createTask('updateOwnUser', 'Allows a user to update his record', 'return $params["id"] == Yii::app()->user->id;');
+        $task->addChild('updateUser');
+
+        $role = $auth->createRole('teacher');
+        $role->addChild('updateOwnLocationGroup');
+        $role->addChild('updateOwnUser');
+
+        $role = $auth->createRole('coordinator');
+        $role->addChild('teacher');
+        $role->addChild('createOwnLocationGroup');
+        $role->addChild('deleteOwnLocationGroup');
+
+        $role = $auth->createRole('administrator');
+        $role->addChild('createGroup');
+        $role->addChild('updateGroup');
+        $role->addChild('deleteGroup');
+        $role->addChild('createUser');
+        $role->addChild('updateUser');
+        $role->addChild('deleteUser');
+     
+        /*if ($role === 'teacher') {
+            $auth->assign('teacher', $user->id);
+        } elseif ($role === 'coordinator') {
+            $auth->assign('coordinator', $user->id);
+        } elseif ($role === 'administrator') {
+            $auth->assign('administrator', $user->id);
         }
-        $this->render('contact', ['model' => $model]);
+        $auth->save();*/
+        return $auth;
     }
 
-    /**
-     * Displays the login page
-     */
-    public function actionLogin()
-    {
-        $model = new LoginForm;
-
-        // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login()) {
-                $this->redirect(Yii::app()->user->returnUrl);
-            }
-        }
-        // display the login form
-        $this->render('login', ['model' => $model]);
-    }
-
-    /**
-     * Logs out the current user and redirect to homepage.
-     */
-    public function actionLogout()
-    {
-        Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
-    }
 }
