@@ -1,21 +1,21 @@
 <?php
 
-class Roles extends CActiveRecord
+class Roles extends CActiveRecord 
 {
-	public function tableName()
-	{
-		return 'roles';
-	}
+    public function tableName() 
+    {
+        return 'roles';
+    }
 
-	public function relations()
-	{
-		return array(
-			'userRoles' => array(self::HAS_MANY, 'UserRoles', 'role'),
-		);
-	}
+    public function relations() 
+    {
+        return array(
+            'userRoles' => array(self::HAS_MANY, 'UserRoles', 'role'),
+        );
+    }
 
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    public static function model($className = __CLASS__) 
+    {
+        return parent::model($className);
+    }
 }

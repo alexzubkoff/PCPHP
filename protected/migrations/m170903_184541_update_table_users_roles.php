@@ -1,10 +1,10 @@
 <?php
 
-class m170903_184541_update_table_users_roles extends CDbMigration
+class m170903_184541_update_table_users_roles extends CDbMigration 
 {
-	public function up()
-	{
-            $this->execute('
+    public function up() 
+    {
+        $this->execute('
             UPDATE `caesar`.`user_roles` SET `role` = 2 WHERE `user_roles`.`id` = 1;
             UPDATE `caesar`.`user_roles` SET `role` = 2 WHERE `user_roles`.`id` = 14;
             UPDATE `caesar`.`user_roles` SET `role` = 2 WHERE `user_roles`.`id` = 18;
@@ -15,11 +15,11 @@ class m170903_184541_update_table_users_roles extends CDbMigration
             UPDATE `caesar`.`user_roles` SET `role` = 3 WHERE `user_roles`.`id` = 3;
             UPDATE `caesar`.`user_roles` SET `role` = 3 WHERE `user_roles`.`id` = 4;
             ');
-	}
+    }
 
-	public function down()
-	{
-            $this->execute('
+    public function down() 
+    {
+        $this->execute('
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 1;
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 14;
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 18;
@@ -30,16 +30,5 @@ class m170903_184541_update_table_users_roles extends CDbMigration
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 3;
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 4;
             ');
-	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    }
 }

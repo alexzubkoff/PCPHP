@@ -1,10 +1,10 @@
 <?php
 
-class m170903_180410_create_table_AuthItemChild extends CDbMigration
+class m170903_180410_create_table_AuthItemChild extends CDbMigration 
 {
-	public function up()
-	{
-            $this->execute('
+    public function up() 
+    {
+        $this->execute('
             drop table if exists `AuthItemChild`;
             create table `AuthItemChild`
             (
@@ -14,21 +14,11 @@ class m170903_180410_create_table_AuthItemChild extends CDbMigration
             foreign key (`parent`) references `AuthItem` (`name`) on delete cascade on update cascade,
             foreign key (`child`) references `AuthItem` (`name`) on delete cascade on update cascade
             ) engine InnoDB;');
-	}
+    }
 
-	public function down()
-	{
-		$this->execute('drop table `AuthItemChild`;');
-	}
+    public function down() 
+    {
+        $this->execute('drop table `AuthItemChild`;');
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
 }

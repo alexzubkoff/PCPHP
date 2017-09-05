@@ -1,10 +1,10 @@
 <?php
 
-class m170903_180547_create_table_AuthAssignment extends CDbMigration
+class m170903_180547_create_table_AuthAssignment extends CDbMigration 
 {
-	public function up()
-	{
-            $this->execute('
+    public function up() 
+    {
+        $this->execute('
             drop table if exists `AuthAssignment`;
             create table `AuthAssignment`
             (
@@ -16,21 +16,10 @@ class m170903_180547_create_table_AuthAssignment extends CDbMigration
             foreign key (`itemname`) references `AuthItem` (`name`) on delete cascade on update cascade
             ) engine InnoDB;
             ');
-	}
+    }
 
-	public function down()
-	{
-	      $this->execute('drop table `AuthAssignment`;');
-	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down() 
+    {
+        $this->execute('drop table `AuthAssignment`;');
+    }
 }

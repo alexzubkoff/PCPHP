@@ -1,10 +1,10 @@
 <?php
 
-class m170903_180223_create_table_AuthItem extends CDbMigration
+class m170903_180223_create_table_AuthItem extends CDbMigration 
 {
-	public function up()
-	{
-             $this->execute('
+    public function up() 
+    {
+        $this->execute('
             drop table if exists `AuthItem`;
             create table `AuthItem`
             (
@@ -16,21 +16,10 @@ class m170903_180223_create_table_AuthItem extends CDbMigration
              primary key (`name`)
             ) engine InnoDB;
             ');
-	}
+    }
 
-	public function down()
-	{
-		 $this->execute('drop table `AuthItem`;');
-	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down() 
+    {
+        $this->execute('drop table `AuthItem`;');
+    }
 }
