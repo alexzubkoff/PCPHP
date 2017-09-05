@@ -1,8 +1,9 @@
 <?php
 
-class m170903_180410_create_table_AuthItemChild extends CDbMigration 
+class m170903_180410_create_table_AuthItemChild extends CDbMigration
 {
-    public function up() 
+
+    public function up()
     {
         $this->execute('
             drop table if exists `AuthItemChild`;
@@ -16,7 +17,7 @@ class m170903_180410_create_table_AuthItemChild extends CDbMigration
             ) engine InnoDB;');
     }
 
-    public function down() 
+    public function down()
     {
         $this->execute('drop table `AuthItemChild`;');
     }

@@ -1,10 +1,10 @@
 <?php
 
-class UserIdentity extends CUserIdentity 
+class UserIdentity extends CUserIdentity
 {
     private $_id;
 
-    public function authenticate() 
+    public function authenticate()
     {
         $user = User::model()->findByAttributes(['username' => $this->username]);
         if ($user === null) {
@@ -35,8 +35,9 @@ class UserIdentity extends CUserIdentity
         return !$this->errorCode;
     }
 
-    public function getId() 
+    public function getId()
     {
         return $this->_id;
     }
+
 }

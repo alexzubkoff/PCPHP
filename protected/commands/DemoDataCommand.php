@@ -1,9 +1,9 @@
 <?php
 
-class DemoDataCommand extends CConsoleCommand 
+class DemoDataCommand extends CConsoleCommand
 {
 
-    public function actionFillOutTableLocations() 
+    public function actionFillOutTableLocations()
     {
         $locations = require_once Yii::app()->basePath . '/data/demo/locations.php';
         $command = Yii::app()->db->createCommand();
@@ -12,7 +12,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTableUsers() 
+    public function actionFillOutTableUsers()
     {
         $users = require_once Yii::app()->basePath . '/data/demo/users.php';
         $command = Yii::app()->db->createCommand();
@@ -21,7 +21,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTableDirections() 
+    public function actionFillOutTableDirections()
     {
         $directions = require_once Yii::app()->basePath . '/data/demo/directions.php';
         $command = Yii::app()->db->createCommand();
@@ -30,7 +30,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTableGroups() 
+    public function actionFillOutTableGroups()
     {
         $groups = require_once Yii::app()->basePath . '/data/demo/groups.php';
         $command = Yii::app()->db->createCommand();
@@ -39,7 +39,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTableUserGroups() 
+    public function actionFillOutTableUserGroups()
     {
         $user_groups = require_once Yii::app()->basePath . '/data/demo/user_groups.php';
         $command = Yii::app()->db->createCommand();
@@ -48,7 +48,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTableUserRoles() 
+    public function actionFillOutTableUserRoles()            
     {
         $user_roles = require_once Yii::app()->basePath . '/data/demo/user_roles.php';
         $command = Yii::app()->db->createCommand();
@@ -57,7 +57,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTablesUserRoles() 
+    public function actionFillOutTablesUserRoles()
     {
         $auth = Yii::app()->authManager;
         $auth->createOperation('createGroup');
@@ -96,4 +96,5 @@ class DemoDataCommand extends CConsoleCommand
         $role->addChild('updateUser');
         $role->addChild('deleteUser');
     }
+
 }

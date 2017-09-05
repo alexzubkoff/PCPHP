@@ -1,8 +1,9 @@
 <?php
 
-class m170903_180547_create_table_AuthAssignment extends CDbMigration 
+class m170903_180547_create_table_AuthAssignment extends CDbMigration
 {
-    public function up() 
+
+    public function up()
     {
         $this->execute('
             drop table if exists `AuthAssignment`;
@@ -18,8 +19,9 @@ class m170903_180547_create_table_AuthAssignment extends CDbMigration
             ');
     }
 
-    public function down() 
+    public function down()
     {
         $this->execute('drop table `AuthAssignment`;');
     }
+
 }
