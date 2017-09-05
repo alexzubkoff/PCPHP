@@ -23,5 +23,4 @@ class m170903_180223_create_table_AuthItem extends CDbMigration
     {
         $this->execute('drop table `AuthItem`;');
     }
-
 }

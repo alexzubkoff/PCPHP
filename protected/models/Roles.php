@@ -17,5 +17,4 @@ class Roles extends CActiveRecord
     {
         return parent::model($className);
     }
-
 }

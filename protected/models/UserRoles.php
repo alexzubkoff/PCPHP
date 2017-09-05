@@ -20,5 +20,4 @@ class UserRoles extends CActiveRecord
     {
         return parent::model($className);
     }
-
 }

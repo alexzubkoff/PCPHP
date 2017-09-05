@@ -32,5 +32,4 @@ class m170903_184541_update_table_users_roles extends CDbMigration
             UPDATE `caesar`.`user_roles` SET `role` = 1 WHERE `user_roles`.`id` = 4;
             ');
     }
-
 }

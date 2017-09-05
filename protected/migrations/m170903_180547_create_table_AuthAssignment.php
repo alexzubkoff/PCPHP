@@ -23,5 +23,4 @@ class m170903_180547_create_table_AuthAssignment extends CDbMigration
     {
         $this->execute('drop table `AuthAssignment`;');
     }
-
 }

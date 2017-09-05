@@ -96,5 +96,4 @@ class DemoDataCommand extends CConsoleCommand
         $role->addChild('updateUser');
         $role->addChild('deleteUser');
     }
-
 }
