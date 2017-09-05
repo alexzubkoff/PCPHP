@@ -1,6 +1,6 @@
 <?php
 
-class m170903_180547_create_table_AuthAssignment extends CDbMigration
+class m170905_214719_create_table_authassignment extends CDbMigration
 {
 
     public function up()

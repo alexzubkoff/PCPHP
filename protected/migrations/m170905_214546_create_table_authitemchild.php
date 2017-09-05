@@ -1,6 +1,6 @@
 <?php
 
-class m170903_180410_create_table_AuthItemChild extends CDbMigration
+class m170905_214546_create_table_authitemchild extends CDbMigration
 {
 
     public function up()
