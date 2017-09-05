@@ -57,7 +57,7 @@ class DemoDataCommand extends CConsoleCommand
         }
     }
 
-    public function actionFillOutTablesUserRoles()
+    public function actionFillOutTablesUserRolesAssignment()
     {
         $auth = Yii::app()->authManager;
         $auth->createOperation('createGroup');
